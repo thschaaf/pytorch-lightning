@@ -64,7 +64,6 @@ class TrainerDPMixin(ABC):
     use_tpu: bool
     data_parallel_device_ids: ...
     progress_bar_callback: ...
-    tpu_id: Optional[int]
     on_colab_kaggle: str
     save_spawn_weights: Callable
     logger: ...
@@ -186,14 +185,14 @@ class TrainerDPMixin(ABC):
         results = self.run_pretrain_routine(model)
         return results
 
-    def tpu_train(self, tpu_core_idx, model):
+    def tpu_train(self, tpu_core_idx: int, model: LightningModule):
         # call setup after the ddp process has connected
         self.setup('fit')
         if self.is_function_implemented('setup', model):
             model.setup('fit')
 
         # put model on tpu
-        self._device = xm.xla_device(self.tpu_id) if self.tpu_id is not None else xm.xla_device()
+        self._device = xm.xla_device(tpu_core_idx) if tpu_core_idx is not None else xm.xla_device()
         model.to(self._device)
 
         # get the appropriate tpu ranks
