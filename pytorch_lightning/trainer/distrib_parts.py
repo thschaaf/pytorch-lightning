@@ -185,7 +185,7 @@ class TrainerDPMixin(ABC):
         results = self.run_pretrain_routine(model)
         return results
 
-    def tpu_train(self, tpu_core_idx: int, model: LightningModule):
+    def tpu_train(self, model: LightningModule, tpu_core_idx: int = None):
         # call setup after the ddp process has connected
         self.setup('fit')
         if self.is_function_implemented('setup', model):

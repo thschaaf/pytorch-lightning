@@ -1026,7 +1026,7 @@ class Trainer(
 
             # train
             if self.tpu_id is not None:
-                self.tpu_train(self.tpu_id, model)
+                self.tpu_train(model, self.tpu_id)
             else:
                 xmp.spawn(self.tpu_train, args=(model,), nprocs=self.tpu_cores, start_method=start_method)
 
