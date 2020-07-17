@@ -1028,7 +1028,13 @@ class Trainer(
             if self.tpu_id is not None:
                 self.tpu_train(model, self.tpu_id)
             else:
-                xmp.spawn(self.tpu_train, args=(model,), nprocs=self.tpu_cores, start_method=start_method)
+                xmp.spawn(
+                    self.tpu_train,
+                    args=(model,),
+                    nprocs=self.tpu_cores,
+                    daemon=True,
+                    start_method=start_method,
+                )
 
             # load weights if not interrupted
             if self.on_colab_kaggle and not self.testing:
