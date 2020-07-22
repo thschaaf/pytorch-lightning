@@ -49,13 +49,13 @@ steps:
     # - codecov --token $CODECOV_TOKEN --flags=gpu,pytest --build $DRONE_BUILD_NUMBER
     - python tests/collect_env_details.py
 
-trigger:
-  branch:
-    - master
-  event:
-    include:
-    - push
-    - pull_request
+#trigger:
+#  branch:
+#    - master
+#  event:
+#    include:
+#    - push
+#    - pull_request
 
 #volumes:
 #  - name: pip_cache
