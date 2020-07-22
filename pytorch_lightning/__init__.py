@@ -34,20 +34,10 @@ Documentation
 import importlib.util
 import logging as python_logging
 
-import torch
 
 _logger = python_logging.getLogger("lightning")
 _logger.addHandler(python_logging.StreamHandler())
 _logger.setLevel(python_logging.INFO)
-
-APEX_AVAILABLE = importlib.util.find_spec("apex") is not None
-BOLTS_AVAILABLE = importlib.util.find_spec("pytorch_lightning.bolts") is not None
-HOROVOD_AVAILABLE = importlib.util.find_spec("horovod") is not None
-NATIVE_AMP_AVALAIBLE = hasattr(torch.cuda, "amp") and hasattr(torch.cuda.amp, "autocast")
-TORCHTEXT_AVAILABLE = importlib.util.find_spec("torchtext") is not None
-TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
-XLA_AVAILABLE = importlib.util.find_spec("torch_xla") is not None
-
 
 # This variable is injected in the __builtins__ by the build
 # process. It is used to enable importing subpackages of skimage when
@@ -59,6 +49,15 @@ if __LIGHTNING_SETUP__:  # pragma: no-cover
     sys.stdout.write(f'Partial import of `{__name__}` during the build process.\n')
     # We are not importing the rest of the lightning during the build process, as it may not be compiled yet
 else:
+    import torch
+    APEX_AVAILABLE = importlib.util.find_spec("apex") is not None
+    BOLTS_AVAILABLE = importlib.util.find_spec("pytorch_lightning.bolts") is not None
+    HOROVOD_AVAILABLE = importlib.util.find_spec("horovod") is not None
+    NATIVE_AMP_AVALAIBLE = hasattr(torch.cuda, "amp") and hasattr(torch.cuda.amp, "autocast")
+    TORCHTEXT_AVAILABLE = importlib.util.find_spec("torchtext") is not None
+    TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
+    XLA_AVAILABLE = importlib.util.find_spec("torch_xla") is not None
+
     from pytorch_lightning.core import LightningModule, data_loader
     from pytorch_lightning.callbacks import Callback
     from pytorch_lightning.trainer import Trainer
