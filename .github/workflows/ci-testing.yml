@@ -67,7 +67,8 @@ jobs:
     - name: Set min. dependencies
       if: matrix.requires == 'minimal'
       run: |
-        pip install -U -q "pip>=20.1"
+        pip install -U -q "pip>=20.1"  # needed for get pip cacher folder
+        pip install -q "PyYAML>=5.3.1"  # needed for installing dependencues
         python -c "fname = 'requirements/base.txt' ; req = open(fname).read().replace('>=', '==') ; open(fname, 'w').write(req)"
         python -c "fname = 'requirements/extra.txt' ; req = open(fname).read().replace('>=', '==') ; open(fname, 'w').write(req)"
         python -c "fname = 'requirements/devel.txt' ; req = open(fname).read().replace('>=', '==') ; open(fname, 'w').write(req)"
