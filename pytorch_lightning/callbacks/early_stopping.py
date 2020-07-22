@@ -18,13 +18,9 @@ from pytorch_lightning.utilities import rank_zero_warn
 
 torch_inf = torch.tensor(np.Inf)
 
-try:
+if XLA_AVAILABLE:
     import torch_xla
     import torch_xla.core.xla_model as xm
-except ImportError:
-    XLA_AVAILABLE = False
-else:
-    XLA_AVAILABLE = True
 
 
 class EarlyStopping(Callback):

@@ -131,23 +131,14 @@ from torch.utils.data import DataLoader
 
 from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.overrides.data_parallel import LightningDistributedDataParallel, LightningDataParallel
-from pytorch_lightning.utilities import rank_zero_warn, NATIVE_AMP_AVALAIBLE
-from torch import distributed as dist
+from pytorch_lightning.utilities import rank_zero_warn, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, HOROVOD_AVAILABLE
 
-try:
+if XLA_AVAILABLE:
     import torch_xla.distributed.parallel_loader as xla_pl
     import torch_xla.core.xla_model as xm
-except ImportError:
-    XLA_AVAILABLE = False
-else:
-    XLA_AVAILABLE = True
 
-try:
+if HOROVOD_AVAILABLE:
     import horovod.torch as hvd
-except (ModuleNotFoundError, ImportError):
-    HOROVOD_AVAILABLE = False
-else:
-    HOROVOD_AVAILABLE = True
 
 
 class TrainerEvaluationLoopMixin(ABC):

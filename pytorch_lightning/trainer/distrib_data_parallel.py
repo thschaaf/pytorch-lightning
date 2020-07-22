@@ -126,26 +126,17 @@ from os.path import abspath
 import torch
 from pytorch_lightning import _logger as log
 from pytorch_lightning.loggers import LightningLoggerBase
-from pytorch_lightning.utilities import NATIVE_AMP_AVALAIBLE
+from pytorch_lightning.utilities import NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, APEX_AVAILABLE, HOROVOD_AVAILABLE
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from pytorch_lightning.utilities.distributed import rank_zero_only, rank_zero_warn, rank_zero_info
 from pytorch_lightning.core.lightning import LightningModule
 
 
-try:
+if APEX_AVAILABLE:
     from apex import amp
-except ImportError:
-    APEX_AVAILABLE = False
-else:
-    APEX_AVAILABLE = True
 
-try:
+if HOROVOD_AVAILABLE:
     import horovod.torch as hvd
-except (ModuleNotFoundError, ImportError):
-    HOROVOD_AVAILABLE = False
-else:
-    HOROVOD_AVAILABLE = True
-
 
 try:
     from hydra.utils import to_absolute_path
@@ -154,15 +145,6 @@ except ImportError:
 else:
     HYDRA_AVAILABLE = True
 
-
-try:
-    import torch_xla
-    import torch_xla.core.xla_model as xm
-    import torch_xla.distributed.xla_multiprocessing as xmp
-except ImportError:
-    XLA_AVAILABLE = False
-else:
-    XLA_AVAILABLE = True
 
 pid = os.getpid()
 rng1 = np.random.RandomState(pid)

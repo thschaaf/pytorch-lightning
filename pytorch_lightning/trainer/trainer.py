@@ -32,7 +32,10 @@ from pytorch_lightning.trainer.training_loop import TrainerTrainLoopMixin
 from pytorch_lightning.trainer.training_tricks import TrainerTrainingTricksMixin
 from pytorch_lightning.trainer.lr_finder import TrainerLRFinderMixin
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from pytorch_lightning.utilities import rank_zero_warn, parsing, rank_zero_info, rank_zero_only
+from pytorch_lightning.utilities import (
+    rank_zero_warn, parsing, rank_zero_info, rank_zero_only,
+    XLA_AVAILABLE, HOROVOD_AVAILABLE
+)
 from pytorch_lightning.utilities.debugging import InternalDebugger
 import warnings
 
@@ -40,28 +43,12 @@ import warnings
 warnings.filterwarnings('ignore', message='torch.distributed.reduce_op is deprecated, '
                                           'please use torch.distributed.ReduceOp instead')
 
-try:
-    from apex import amp
-except ImportError:
-    APEX_AVAILABLE = False
-else:
-    APEX_AVAILABLE = True
-
-try:
+if XLA_AVAILABLE:
     import torch_xla
-    import torch_xla.core.xla_model as xm
     import torch_xla.distributed.xla_multiprocessing as xmp
-except ImportError:
-    XLA_AVAILABLE = False
-else:
-    XLA_AVAILABLE = True
 
-try:
+if HOROVOD_AVAILABLE:
     import horovod.torch as hvd
-except (ModuleNotFoundError, ImportError):
-    HOROVOD_AVAILABLE = False
-else:
-    HOROVOD_AVAILABLE = True
 
 
 class Trainer(

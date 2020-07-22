@@ -4,15 +4,10 @@ import torch
 from torch import Tensor
 from torch.nn import Module
 from torch.optim.optimizer import Optimizer
-from pytorch_lightning.utilities import move_data_to_device, NATIVE_AMP_AVALAIBLE
+from pytorch_lightning.utilities import move_data_to_device, NATIVE_AMP_AVALAIBLE, APEX_AVAILABLE
 
-
-try:
+if APEX_AVAILABLE:
     from apex import amp
-except ImportError:
-    APEX_AVAILABLE = False
-else:
-    APEX_AVAILABLE = True
 
 
 class ModelHooks(Module):

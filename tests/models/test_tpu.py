@@ -235,7 +235,7 @@ def test_tpu_id_to_be_as_expected(tpu_cores, expected_tpu_id):
     assert Trainer(tpu_cores=tpu_cores).tpu_id == expected_tpu_id
 
 
-@patch('pytorch_lightning.trainer.trainer.XLA_AVAILABLE', False)
+@patch('pytorch_lightning.utilities.XLA_AVAILABLE', False)
 def test_exception_when_no_tpu_found(tmpdir):
     """Test if exception is thrown when xla devices are not available"""
     model = EvalModelTemplate()
