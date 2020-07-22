@@ -10,7 +10,8 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from torch.utils.data.distributed import DistributedSampler
 
 from pytorch_lightning.core import LightningModule
-from pytorch_lightning.utilities import rank_zero_warn, XLA_AVAILABLE, HOROVOD_AVAILABLE
+from pytorch_lightning.utilities import rank_zero_warn
+from pytorch_lightning import HOROVOD_AVAILABLE, XLA_AVAILABLE
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 
 try:

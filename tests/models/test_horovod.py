@@ -10,8 +10,7 @@ import torch
 
 import tests.base.develop_pipelines as tpipes
 import tests.base.develop_utils as tutils
-from pytorch_lightning import Trainer
-from pytorch_lightning.utilities import HOROVOD_AVAILABLE
+from pytorch_lightning import Trainer, HOROVOD_AVAILABLE
 from tests.base import EvalModelTemplate
 from tests.base.models import TestGAN
 

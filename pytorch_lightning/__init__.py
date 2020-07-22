@@ -31,23 +31,32 @@ Documentation
 - https://pytorch-lightning.readthedocs.io/en/stable
 """
 
+import importlib.util
 import logging as python_logging
+
+import torch
 
 _logger = python_logging.getLogger("lightning")
 _logger.addHandler(python_logging.StreamHandler())
 _logger.setLevel(python_logging.INFO)
 
-try:
-    # This variable is injected in the __builtins__ by the build
-    # process. It used to enable importing subpackages of skimage when
-    # the binaries are not built
-    __LIGHTNING_SETUP__
-except NameError:
-    __LIGHTNING_SETUP__ = False
+APEX_AVAILABLE = importlib.util.find_spec("apex") is not None
+BOLTS_AVAILABLE = importlib.util.find_spec("pytorch_lightning.bolts") is not None
+HOROVOD_AVAILABLE = importlib.util.find_spec("horovod") is not None
+NATIVE_AMP_AVALAIBLE = hasattr(torch.cuda, "amp") and hasattr(torch.cuda.amp, "autocast")
+TORCHTEXT_AVAILABLE = importlib.util.find_spec("torchtext") is not None
+TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
+XLA_AVAILABLE = importlib.util.find_spec("torch_xla") is not None
 
-if __LIGHTNING_SETUP__:
-    import sys  # pragma: no-cover
-    sys.stdout.write(f'Partial import of `{__name__}` during the build process.\n')  # pragma: no-cover
+
+# This variable is injected in the __builtins__ by the build
+# process. It is used to enable importing subpackages of skimage when
+# the binaries are not built
+__LIGHTNING_SETUP__ = "__LIGHTNING_SETUP__" in dir(__builtins__)
+
+if __LIGHTNING_SETUP__:  # pragma: no-cover
+    import sys
+    sys.stdout.write(f'Partial import of `{__name__}` during the build process.\n')
     # We are not importing the rest of the lightning during the build process, as it may not be compiled yet
 else:
     from pytorch_lightning.core import LightningModule, data_loader
@@ -69,10 +78,8 @@ else:
     ]
 
     # necessary for regular bolts imports. Skip exception since bolts is not always installed
-    try:
+    if BOLTS_AVAILABLE:
         from pytorch_lightning import bolts
-    except ImportError:
-        pass
     # __call__ = __all__
 
 # for compatibility with namespace packages

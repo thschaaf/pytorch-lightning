@@ -7,12 +7,11 @@ Monitor a validation metric and stop training when it stops improving.
 """
 from copy import deepcopy
 
-import os
 import numpy as np
 import torch
 import torch.distributed as dist
 
-from pytorch_lightning import _logger as log
+from pytorch_lightning import _logger as log, XLA_AVAILABLE
 from pytorch_lightning.callbacks.base import Callback
 from pytorch_lightning.utilities import rank_zero_warn
 

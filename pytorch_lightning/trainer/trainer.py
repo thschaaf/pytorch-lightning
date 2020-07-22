@@ -13,7 +13,7 @@ from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.core.memory import ModelSummary
 from pytorch_lightning.loggers import LightningLoggerBase
 from pytorch_lightning.profiler import SimpleProfiler, PassThroughProfiler, BaseProfiler
-from pytorch_lightning.trainer.auto_mix_precision import TrainerAMPMixin, NATIVE_AMP_AVALAIBLE
+from pytorch_lightning.trainer.auto_mix_precision import TrainerAMPMixin
 from pytorch_lightning.trainer.callback_config import TrainerCallbackConfigMixin
 from pytorch_lightning.trainer.callback_hook import TrainerCallbackHookMixin
 from pytorch_lightning.trainer.data_loading import TrainerDataLoadingMixin
@@ -33,9 +33,9 @@ from pytorch_lightning.trainer.training_tricks import TrainerTrainingTricksMixin
 from pytorch_lightning.trainer.lr_finder import TrainerLRFinderMixin
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from pytorch_lightning.utilities import (
-    rank_zero_warn, parsing, rank_zero_info, rank_zero_only,
-    XLA_AVAILABLE, HOROVOD_AVAILABLE
+    rank_zero_warn, parsing, rank_zero_info, rank_zero_only
 )
+from pytorch_lightning import HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 from pytorch_lightning.utilities.debugging import InternalDebugger
 import warnings
 

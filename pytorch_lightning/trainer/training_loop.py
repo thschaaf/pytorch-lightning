@@ -155,13 +155,13 @@ from torch.utils.data import DataLoader
 import torch.distributed as torch_distrib
 from copy import copy
 
-from pytorch_lightning import _logger as log
+from pytorch_lightning import _logger as log, HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 from pytorch_lightning.callbacks.base import Callback
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.loggers import LightningLoggerBase
 from pytorch_lightning.trainer.supporters import TensorRunningAccum, Accumulator
-from pytorch_lightning.utilities import rank_zero_warn, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, HOROVOD_AVAILABLE
+from pytorch_lightning.utilities import rank_zero_warn
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from pytorch_lightning.utilities.parsing import AttributeDict
 from pytorch_lightning.utilities.memory import recursive_detach

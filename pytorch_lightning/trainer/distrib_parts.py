@@ -13,13 +13,12 @@ import torch
 from typing import Union, Callable, Any, List, Optional, Tuple, MutableSequence
 
 from pytorch_lightning.core.lightning import LightningModule
-from pytorch_lightning import _logger as log
+from pytorch_lightning import _logger as log, APEX_AVAILABLE, HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 from pytorch_lightning.overrides.data_parallel import (
     LightningDistributedDataParallel,
     LightningDataParallel,
 )
-from pytorch_lightning.utilities import move_data_to_device, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, APEX_AVAILABLE, \
-    HOROVOD_AVAILABLE
+from pytorch_lightning.utilities import move_data_to_device
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from pytorch_lightning.utilities.distributed import rank_zero_only
 from pytorch_lightning.utilities import rank_zero_warn

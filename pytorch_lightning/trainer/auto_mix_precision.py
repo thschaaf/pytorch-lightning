@@ -1,7 +1,6 @@
 from abc import ABC
 
-from pytorch_lightning import _logger as log
-from pytorch_lightning.utilities import APEX_AVAILABLE, NATIVE_AMP_AVALAIBLE
+from pytorch_lightning import _logger as log, APEX_AVAILABLE, NATIVE_AMP_AVALAIBLE
 
 
 class TrainerAMPMixin(ABC):

@@ -93,7 +93,7 @@ import torch
 import torch.distributed as torch_distrib
 
 import pytorch_lightning
-from pytorch_lightning import _logger as log
+from pytorch_lightning import _logger as log, HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import LightningLoggerBase
@@ -101,7 +101,7 @@ from pytorch_lightning.overrides.data_parallel import (
     LightningDistributedDataParallel,
     LightningDataParallel,
 )
-from pytorch_lightning.utilities import rank_zero_warn, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, HOROVOD_AVAILABLE
+from pytorch_lightning.utilities import rank_zero_warn
 from pytorch_lightning.utilities.cloud_io import load as pl_load
 
 if XLA_AVAILABLE:

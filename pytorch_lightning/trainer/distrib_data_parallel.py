@@ -124,9 +124,8 @@ import numpy as np
 from os.path import abspath
 
 import torch
-from pytorch_lightning import _logger as log
+from pytorch_lightning import _logger as log, APEX_AVAILABLE, HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 from pytorch_lightning.loggers import LightningLoggerBase
-from pytorch_lightning.utilities import NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, APEX_AVAILABLE, HOROVOD_AVAILABLE
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 from pytorch_lightning.utilities.distributed import rank_zero_only, rank_zero_warn, rank_zero_info
 from pytorch_lightning.core.lightning import LightningModule

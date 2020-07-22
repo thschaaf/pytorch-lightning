@@ -131,7 +131,8 @@ from torch.utils.data import DataLoader
 
 from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.overrides.data_parallel import LightningDistributedDataParallel, LightningDataParallel
-from pytorch_lightning.utilities import rank_zero_warn, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE, HOROVOD_AVAILABLE
+from pytorch_lightning.utilities import rank_zero_warn
+from pytorch_lightning import HOROVOD_AVAILABLE, NATIVE_AMP_AVALAIBLE, XLA_AVAILABLE
 
 if XLA_AVAILABLE:
     import torch_xla.distributed.parallel_loader as xla_pl

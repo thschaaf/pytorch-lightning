@@ -5,7 +5,7 @@ from typing import Any, Callable, Union
 
 import torch
 
-from pytorch_lightning.utilities import TORCHTEXT_AVAILABLE
+from pytorch_lightning import TORCHTEXT_AVAILABLE
 
 if TORCHTEXT_AVAILABLE:
     from torchtext.data import Batch
