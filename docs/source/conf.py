@@ -413,15 +413,16 @@ autosectionlabel_prefix_document = True
 doctest_test_doctest_blocks = ''
 doctest_global_setup = """
 
-import importlib
 import os
 import torch
 
-from pytorch_lightning.utilities import NATIVE_AMP_AVALAIBLE
-APEX_AVAILABLE = importlib.util.find_spec("apex") is not None
-XLA_AVAILABLE = importlib.util.find_spec("torch_xla") is not None
-TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
-
+from pytorch_lightning.utilities import (
+    APEX_AVAILABLE,
+    HOROVOD_AVAILABLE,
+    NATIVE_AMP_AVALAIBLE,
+    TORCHTEXT_AVAILABLE,
+    XLA_AVAILABLE,
+)
 
 """
 coverage_skip_undoc_in_source = True
