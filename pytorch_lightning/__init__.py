@@ -31,9 +31,8 @@ Documentation
 - https://pytorch-lightning.readthedocs.io/en/stable
 """
 
-import importlib.util
 import logging as python_logging
-
+from importlib.util import find_spec
 
 _logger = python_logging.getLogger("lightning")
 _logger.addHandler(python_logging.StreamHandler())
@@ -49,14 +48,16 @@ if __LIGHTNING_SETUP__:  # pragma: no-cover
     sys.stdout.write(f'Partial import of `{__name__}` during the build process.\n')
     # We are not importing the rest of the lightning during the build process, as it may not be compiled yet
 else:
-    import torch
-    APEX_AVAILABLE = importlib.util.find_spec("apex") is not None
-    BOLTS_AVAILABLE = importlib.util.find_spec("pytorch_lightning.bolts") is not None
-    HOROVOD_AVAILABLE = importlib.util.find_spec("horovod") is not None
-    NATIVE_AMP_AVALAIBLE = hasattr(torch.cuda, "amp") and hasattr(torch.cuda.amp, "autocast")
-    TORCHTEXT_AVAILABLE = importlib.util.find_spec("torchtext") is not None
-    TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
-    XLA_AVAILABLE = importlib.util.find_spec("torch_xla") is not None
+    APEX_AVAILABLE = find_spec("apex") is not None
+    BOLTS_AVAILABLE = find_spec("pytorch_lightning.bolts") is not None
+    HOROVOD_AVAILABLE = find_spec("horovod") is not None
+    NATIVE_AMP_AVALAIBLE = (
+        find_spec("torch.cuda.amp") is not None and
+        find_spec("torch.cuda.amp.autocast") is not None
+    )
+    TORCHTEXT_AVAILABLE = find_spec("torchtext") is not None
+    TORCHVISION_AVAILABLE = find_spec("torchvision") is not None
+    XLA_AVAILABLE = find_spec("torch_xla") is not None
 
     from pytorch_lightning.core import LightningModule, data_loader
     from pytorch_lightning.callbacks import Callback
@@ -77,7 +78,7 @@ else:
     ]
 
     # necessary for regular bolts imports. Skip exception since bolts is not always installed
-    if BOLTS_AVAILABLE:
+    if BOLTS_AVAILABLE:  # pragma: no-cover
         from pytorch_lightning import bolts
     # __call__ = __all__
 
