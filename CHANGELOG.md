@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - Added struct. output:
   * tests for val loop flow ([#2605](https://github.com/PyTorchLightning/pytorch-lightning/pull/2605))
+  * EvalResult support for train and val. loop ([#2615](https://github.com/PyTorchLightning/pytorch-lightning/pull/2615), [#2651](https://github.com/PyTorchLightning/pytorch-lightning/pull/2651))
 
 
 ### Changed
