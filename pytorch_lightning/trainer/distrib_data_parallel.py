@@ -162,9 +162,9 @@ except ImportError:
 else:
     XLA_AVAILABLE = True
 
-pid = os.getpid()
-rng1 = np.random.RandomState(pid)
-RANDOM_PORTS = rng1.randint(10000, 19999, 100)
+PID = os.getpid()
+RNG1 = np.random.RandomState(PID)
+RANDOM_PORTS = RNG1.randint(10000, 19999, 100)
 
 
 class TrainerDDPMixin(ABC):
@@ -345,7 +345,6 @@ class TrainerDDPMixin(ABC):
     def determine_local_rank(self):
         if self.is_slurm_managing_tasks:
             return int(os.environ['SLURM_LOCALID'])
-
         else:
             return int(os.environ.get('LOCAL_RANK', 0))
 
